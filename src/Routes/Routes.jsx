@@ -5,6 +5,8 @@ import Main from "../Main/Main";
 import Home from "../pages/home/Home";
 import LogIn from "../pages/logIn/LogIn";
 import SingUp from "../pages/singUp/SingUp";
+import Dashboard from "../dashBoard/Dashboard";
+import ManageUser from "../dashBoard/admin/ManageUser";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +27,16 @@ const router = createBrowserRouter([
         }
       ]
     },
+    {
+      path:'/dashboard',
+      element:<Dashboard></Dashboard>,
+      children:[
+        {
+          path:'manageUser',
+          element:<ManageUser></ManageUser>
+        }
+      ]
+    }
   ]);
 
   export default router
