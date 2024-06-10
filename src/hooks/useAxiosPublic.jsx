@@ -1,6 +1,6 @@
 
 const axiosPublic=axios.create({
-    baseURL: 'https://bistro-boss-server-nu-seven.vercel.app'
+    baseURL: 'http://localhost:5000'
 })
 
 const useAxiosPublic = () => {
