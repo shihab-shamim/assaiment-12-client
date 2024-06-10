@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { Button } from "flowbite-react";
@@ -11,6 +11,9 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const LogIn = () => {
   const axiosPublic=useAxiosPublic()
+  const location =useLocation()
+  const from= location.state?.from?.pathname || "/"
+
   const [loading,setLoading]=useState(false)
   const {createGoogle,signInUser}=useAuth()
   const navigate=useNavigate()
@@ -20,7 +23,8 @@ const LogIn = () => {
       const userInfo ={
 
         email:result.user?.email,
-        name:result.user?.displayName
+        name:result.user?.displayName,
+        role:'user'
     }
   
     axiosPublic.post('/users',userInfo)
@@ -34,7 +38,7 @@ const LogIn = () => {
           timer: 1500
         });
 
-         navigate('/')
+         navigate(from)
     })
 
     })
@@ -54,7 +58,7 @@ const LogIn = () => {
         showConfirmButton: false,
         timer: 1500
       });
-      navigate('/')
+      navigate(from)
       setLoading(false)
     })
     .catch(error =>{

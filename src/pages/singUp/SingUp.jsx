@@ -34,7 +34,8 @@ const SignUp = () => {
       .then(()=>{
         const userInfo={
           name:data.name,
-          email:data.email
+          email:data.email,
+          role:'user'
         }
         axiosPublic.post('/users',userInfo)
         .then(res=>{
@@ -79,7 +80,8 @@ const SignUp = () => {
       const userInfo ={
 
         email:result.user?.email,
-        name:result.user?.displayName
+        name:result.user?.displayName,
+        role:'user'
     }
   
     axiosPublic.post('/users',userInfo)
