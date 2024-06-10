@@ -23,11 +23,33 @@ const ManageUser = () => {
         },
         initialData:[]
     })
-    const handleMake= async (make,id)=>{
-        const info ={role:make}
-        console.log(info,id)
-        const res =await axiosSecure.patch(`/users/${id}`,info)
-        console.log(res.data)
+    const handleMake= async (make,id,email)=>{
+        if(make === 'fraud'){
+            console.log(make,email)
+        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: `Make a ${make}`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes,"
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+                const info ={role:make}
+                console.log(info,id)
+                const res =await axiosSecure.patch(`/users/${id}`,info)
+                refetch()
+                
+              Swal.fire({
+                title: "Updated",
+                text: `${make} success`,
+                icon: "success"
+              });
+            }
+          });
+       
         
 
     }
@@ -71,6 +93,7 @@ const ManageUser = () => {
       
         <th>Name</th>
         <th>Email</th>
+        <th>Role</th>
         <th>Make Admin</th>
         <th>Make Agent</th>
         <th>Make Fraud</th>
@@ -94,12 +117,13 @@ const ManageUser = () => {
             <td>
               {user.email}
             </td>
-            <button onClick={()=>handleMake('admin',user._id)} className="btn btn-ghost bg-orange-400 btn-xs">Admin</button>
+            <td>{user.role}</td>
+            <button onClick={()=>handleMake('admin',user._id,user.email)} className="btn btn-ghost bg-orange-400 btn-xs">Admin</button>
             <th>
-              <button onClick={()=>handleMake('agent',user._id)}  className="btn btn-ghost btn-xs bg-orange-500">Agent</button>
+              <button onClick={()=>handleMake('agent',user._id,user.email)}  className="btn btn-ghost btn-xs bg-orange-500">Agent</button>
             </th>
             <th>
-              <button onClick={()=>handleMake('fraud',user._id)} className="btn btn-ghost btn-xs bg-orange-500">Fraud</button>
+              <button onClick={()=>handleMake('fraud',user._id,user.email)} className="btn btn-ghost btn-xs bg-orange-500">Fraud</button>
             </th>
             <th>
               <button onClick={()=>handleDelete(user._id)} className="btn btn-ghost btn-xs bg-orange-500">Delete</button>
