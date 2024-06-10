@@ -7,6 +7,10 @@ import LogIn from "../pages/logIn/LogIn";
 import SingUp from "../pages/singUp/SingUp";
 import Dashboard from "../dashBoard/Dashboard";
 import ManageUser from "../dashBoard/admin/ManageUser";
+import ManageProperty from "../dashBoard/admin/ManageProperty";
+import ManageReview from "../dashBoard/admin/ManageReview";
+import Admin from "../dashBoard/admin/Admin";
+import AdminPrivet from "../dashBoard/admin/AdminPrivet";
 
 const router = createBrowserRouter([
     {
@@ -31,9 +35,25 @@ const router = createBrowserRouter([
       path:'/dashboard',
       element:<Dashboard></Dashboard>,
       children:[
+
+        // agent routes 
+        
+
+        // admin routes 
+        {path:'admin',
+        element:<AdminPrivet><Admin></Admin></AdminPrivet>
+        },
         {
           path:'manageUser',
-          element:<ManageUser></ManageUser>
+          element:<AdminPrivet><ManageUser></ManageUser></AdminPrivet>
+        },
+        {
+          path:'manageProperty',
+          element:<AdminPrivet><ManageProperty></ManageProperty></AdminPrivet>
+        },
+        {
+          path:'manageReview',
+          element:<AdminPrivet><ManageReview></ManageReview></AdminPrivet>
         }
       ]
     }
