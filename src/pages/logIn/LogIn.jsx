@@ -6,23 +6,38 @@ import Swal from "sweetalert2";
 import { Button } from "flowbite-react";
 import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 const LogIn = () => {
+  const axiosPublic=useAxiosPublic()
   const [loading,setLoading]=useState(false)
   const {createGoogle,signInUser}=useAuth()
   const navigate=useNavigate()
   const handleGoogle =async () =>{
-    const {user}= await createGoogle()
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Google Sign in success",
-      showConfirmButton: false,
-      timer: 1000
-    });
-    
-    navigate('/')
+    createGoogle()
+    .then(result => {
+      const userInfo ={
+
+        email:result.user?.email,
+        name:result.user?.displayName
+    }
+  
+    axiosPublic.post('/users',userInfo)
+    .then(res => {
+        console.log(res.data)
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "logged in ",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+         navigate('/')
+    })
+
+    })
   }
   const { register, handleSubmit,formState: { errors } } = useForm();
   const onSubmit = data => {

@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from '../../hooks/useAuth'
 import Swal from "sweetalert2";
 import axios from "axios";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const SignUp = () => {
- 
+  const axiosPublic=useAxiosPublic()
   const navigate=useNavigate()
   const {createUser,createGoogle,updateUser}=useAuth()
 
@@ -30,15 +31,36 @@ const SignUp = () => {
     .then(res=>{
       console.log(res.user)
       updateUser(name,photo)
-      .then(res=>{
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Sign Up Success",
-          showConfirmButton: false,
-          timer: 1500
-        });
-        navigate('/')
+      .then(()=>{
+        const userInfo={
+          name:data.name,
+          email:data.email
+        }
+        axiosPublic.post('/users',userInfo)
+        .then(res=>{
+          if(res.data.insertedId){
+            console.log('user added to the database')
+            // reset()
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "logged in ",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate('/')
+          }
+        })
+
+      
+        // Swal.fire({
+        //   position: "top-end",
+        //   icon: "success",
+        //   title: "Sign Up Success",
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // });
+        // navigate('/')
 
       })
     
@@ -52,16 +74,31 @@ const SignUp = () => {
   
   };
   const handleGoogle =async () =>{
-    const {user}= await createGoogle()
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Google Sign in success",
-      showConfirmButton: false,
-      timer: 1000
-    });
+    createGoogle()
+    .then(result => {
+      const userInfo ={
+
+        email:result.user?.email,
+        name:result.user?.displayName
+    }
+  
+    axiosPublic.post('/users',userInfo)
+    .then(res => {
+        console.log(res.data)
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "logged in ",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+         navigate('/')
+    })
+
+    })
     
-    navigate('/')
+    // navigate('/')
   }
   return (
     <div>
