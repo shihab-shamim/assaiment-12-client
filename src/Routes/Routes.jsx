@@ -17,6 +17,7 @@ import AddProperty from "../dashBoard/agent/AddProperty";
 import MyAdd from "../dashBoard/agent/MyAdd";
 import MySold from "../dashBoard/agent/MySold";
 import AgentPrivet from "../dashBoard/agent/AgentPrivet";
+import Update from "../dashBoard/agent/Update";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
         {
           path:'myAdded',
           element:<AgentPrivet><MyAdd></MyAdd></AgentPrivet>
+        },
+        {path:'myAdded/:id',
+          element:<AgentPrivet><Update></Update></AgentPrivet>
+
         },
         {
           path:'mySoldProperty',

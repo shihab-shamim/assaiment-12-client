@@ -1,11 +1,39 @@
+import { Link } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const AddCard = ({property,user,refetch}) => {
     const axiosSecure =useAxiosSecure()
     
     const handleDelete = async (id) =>{
-        
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+                try{
+                    const res = await axiosSecure.delete(`/property/${id}`)
+                    console.log(res.data)
+                    refetch()
+                      Swal.fire({
+                title: "Deleted!",
+                text: "Deleted Your Added Property",
+                icon: "success"
+              });
+                   }
+                   catch{
+                    console.log(error)
+                   }
+            
+            }
+          });
+
        
     }
     
@@ -34,7 +62,7 @@ const AddCard = ({property,user,refetch}) => {
         
 	</div>
     <div className="flex justify-between">
-            <button className="btn btn-secondary">update</button>
+             <Link to={`/dashboard/myAdded/${property._id}`}> <button className="btn btn-secondary">update</button></Link>
             <button onClick={() => handleDelete(property._id)} className="btn btn-secondary bg-red-600">Delete</button>
         </div>
 </div>
