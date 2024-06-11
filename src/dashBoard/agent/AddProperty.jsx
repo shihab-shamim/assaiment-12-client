@@ -1,8 +1,13 @@
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddProperty = () => {
+  const navigate =useNavigate()
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure()
   
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -15,15 +20,7 @@ const AddProperty = () => {
     const agentName = from.agentName.value;
     const agentEmail = from.agentEmail.value;
     const status = "pending";
-    const itemInfo = {
-      title,
-      location,
-      minPrice,
-      maxPrice,
-      agentEmail,
-      agentName,
-      status,
-    };
+   
     const imageFile ={image:photo}
     // console.log("image", imageFile);
     try{
@@ -32,9 +29,40 @@ const AddProperty = () => {
                 'content-type':'multipart/form-data'
             }
         })
-        console.log(data.data.display_url)
+        // console.log(data.data.display_url)
         if(data.data.display_url){
-            console.log(itemInfo)
+          const image = data.data.display_url
+          const itemInfo = {
+            title,
+            location,
+            minPrice,
+            maxPrice,
+            agentEmail,
+            agentName,
+            status,
+            image
+          };
+          console.log(itemInfo)
+          try{
+            const res =await axiosSecure.post('/property',itemInfo)
+            console.log(res.data)
+            if(res.data.insertedId){
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your Property Added",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate('/dashboard/myAdded')
+
+            }
+
+          }
+          catch{
+            console.log(error)
+
+          }
 
         }
 
