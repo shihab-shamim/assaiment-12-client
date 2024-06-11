@@ -11,6 +11,12 @@ import ManageProperty from "../dashBoard/admin/ManageProperty";
 import ManageReview from "../dashBoard/admin/ManageReview";
 import Admin from "../dashBoard/admin/Admin";
 import AdminPrivet from "../dashBoard/admin/AdminPrivet";
+import PrivetRoute from "../privetRoutes/PrivetRoute";
+import AgentProfile from "../dashBoard/agent/AgentProfile";
+import AddProperty from "../dashBoard/agent/AddProperty";
+import MyAdd from "../dashBoard/agent/MyAdd";
+import MySold from "../dashBoard/agent/MySold";
+import AgentPrivet from "../dashBoard/agent/AgentPrivet";
 
 const router = createBrowserRouter([
     {
@@ -33,11 +39,27 @@ const router = createBrowserRouter([
     },
     {
       path:'/dashboard',
-      element:<Dashboard></Dashboard>,
+      element:<PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
       children:[
 
         // agent routes 
-        
+        {
+          path:'agent',
+          element:<AgentPrivet><AgentProfile></AgentProfile></AgentPrivet>
+        },
+        {
+          path:'addProperty',
+          element:<AgentPrivet><AddProperty></AddProperty></AgentPrivet>
+        },
+        {
+          path:'myAdded',
+          element:<AgentPrivet><MyAdd></MyAdd></AgentPrivet>
+        },
+        {
+          path:'mySoldProperty',
+          element:<AgentPrivet><MySold></MySold></AgentPrivet>
+        },
+
 
         // admin routes 
         {path:'admin',

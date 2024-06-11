@@ -67,7 +67,17 @@ const SignUp = () => {
     
 
     })
-    .catch(error=>console.log(error))
+    .catch(error=>{
+      console.log(error.message.split('Firebase: Error (auth/')[1].split(')')[0])
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `${error.message.split('Firebase: Error (auth/')[1].split(')')[0]}`,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    })
+    
       
     }
 
@@ -83,10 +93,13 @@ const SignUp = () => {
         name:result.user?.displayName,
         role:'user'
     }
+    
+    
+    
   
     axiosPublic.post('/users',userInfo)
     .then(res => {
-        console.log(res.data)
+        console.log(res)
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -96,6 +109,9 @@ const SignUp = () => {
         });
 
          navigate('/')
+    })
+    .then(error=>{
+      console.log(error)
     })
 
     })
@@ -183,7 +199,7 @@ const SignUp = () => {
                   <input
                     type="password"
                     name="password"
-                    {...register("password",{required:true , minLength:6, maxLength:20 ,pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/ })} 
+                    {...register("password",{required:true})} 
 
                     id="password"
                     placeholder="••••••••"

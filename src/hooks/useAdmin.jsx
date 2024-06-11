@@ -2,17 +2,18 @@ import { useState, useEffect } from 'react';
 import useRole from './useRole';
 
 const useAdmin = () => {
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState(null); // Uncommented this line
     const [isLoading, setIsLoading] = useState(true);
 
-    const { data: userRole, isLoading: roleLoading } = useRole();
+    const [userStatus, userRole, userLoading] = useRole(); // Updated this line
+    console.log('userRole:', userRole, 'isAdmin:', userLoading); // Updated this line
 
     useEffect(() => {
-        if (!roleLoading) {
+        if (!userLoading) {
             setRole(userRole);
             setIsLoading(false);
         }
-    }, [userRole, roleLoading]);
+    }, [userRole, userLoading]);
 
     const isAdmin = role === 'admin';
 
