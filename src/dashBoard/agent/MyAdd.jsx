@@ -14,7 +14,7 @@ const MyAdd = () => {
             return res.data
 
         },
-        initialData:[]
+        initialData:[],
     })
     
    
@@ -23,8 +23,9 @@ const MyAdd = () => {
             <h2 className="text-center text-xl font-bold bg-blue-500 text-white p-4"> My added properties section {properties.length}</h2>
 
             <div className="grid grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
+                
                 {
-                    properties.map(property => <AddCard refetch={refetch}  property={property} user={user}  key={property._id}></AddCard>)
+                   properties.length > 0 &&  properties?.map(property => <AddCard refetch={refetch}  property={property} user={user}  key={property._id}></AddCard>)
                 }
             </div>
             
