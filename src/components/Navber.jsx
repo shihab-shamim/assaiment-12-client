@@ -7,7 +7,7 @@ const Navber = () => {
 
     const navlink = <>
     <div className=' gap-4 lg:flex lg:gap-8 font-semibold'><NavLink to='/'><li>Home</li></NavLink>
-    <NavLink><li>All properties</li></NavLink>
+    <NavLink to='/allProperty'><li>All properties</li></NavLink>
     {user && <NavLink to='/dashboard'><li>Dashboard</li></NavLink>}
     {!user &&  <NavLink to='/login'><li>Login</li></NavLink>
     }

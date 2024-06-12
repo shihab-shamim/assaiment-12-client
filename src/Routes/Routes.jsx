@@ -23,6 +23,7 @@ import UserProfile from "../dashBoard/user/UserProfile";
 import WishList from '../dashBoard/user/WistList'
 import PropertyBought from "../dashBoard/user/PropertyBought";
 import MyReview from "../dashBoard/user/MyReview";
+import AllProperty from "../pages/AllProperty/AllProperty";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         {
           path:'signUp',
           element:<SingUp></SingUp>
+        },
+        {
+          path:'allProperty',
+          element:<AllProperty></AllProperty>
         }
       ]
     },
