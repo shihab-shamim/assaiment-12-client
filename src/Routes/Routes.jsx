@@ -56,10 +56,10 @@ const router = createBrowserRouter([
           path:'myAdded',
           element:<AgentPrivet><MyAdd></MyAdd></AgentPrivet>
         },
-        {path:'myAdded/:id',
-          element:<AgentPrivet><Update></Update></AgentPrivet>
+        // {path:'myAdded/:id',
+        //   element:<AgentPrivet><Update></Update></AgentPrivet>
 
-        },
+        // },
         {
           path:'mySoldProperty',
           element:<AgentPrivet><MySold></MySold></AgentPrivet>

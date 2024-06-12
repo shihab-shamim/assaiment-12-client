@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const ManageProperty = () => {
     const axiosSecure =useAxiosSecure()
-    const {data:manageProperty}=useQuery({
+    const {data:manageProperty,refetch}=useQuery({
         queryKey:['property'],
         queryFn:async () =>{
             try{
@@ -18,6 +19,103 @@ const ManageProperty = () => {
         },
         initialData:[]
     })
+    const handleVerify= async (property) =>{
+        const verifyItem = {
+            title:property.title,
+            location:property.location,
+            minPrice:property.minPrice,
+            maxPrice:property.maxPrice,
+            agentEmail:property.agentEmail,
+            agentName:property.agentName,
+            status:'verify',
+            image:property.image
+        }
+        // console.log(verifyItem)
+        const verifyStatus = {status:'verify'}
+        // console.log(verifyStatus)
+        const id =property._id
+        console.log(id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "verify this property",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, verify it!"
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+                try{
+                    const res =await axiosSecure.patch(`/property/${id}`,verifyStatus)
+                    console.log(res.data)
+                    if(res.data.modifiedCount>0){
+                        const res=await axiosSecure.post('/verifyProperty',verifyItem)
+                        console.log(res.data)
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Verify Property",
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+        
+                    }
+                    else{
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "error",
+                            title: "Already verify",
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+                    }
+
+        
+        
+                }
+                catch{
+                    console.log(error)
+                }
+            
+            }
+          });
+       
+
+    }
+    const handleReject = async (id)=>{
+        const verifyStatus = {status:'rejected'}
+        // console.log(verifyStatus)
+        try{
+            const res =await axiosSecure.patch(`/property/${id}`,verifyStatus)
+            console.log(res.data)
+            if(res.data.modifiedCount > 0){
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Rejected Property",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+
+            }
+            else{
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Already Rejected",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+
+            }
+
+        }
+        catch{
+            console.log(error)
+        }
+
+        
+    }
     return (
         <div>
             <h2 className="text-center text-xl font-bold bg-yellow-300 p-4">Manage Property {manageProperty.length} </h2>
@@ -48,8 +146,8 @@ const ManageProperty = () => {
         <td>{property.title}</td>
         <td>{property.location}</td>
         <td>{property.minPrice}  - {property.maxPrice} $</td>
-        <td><button className="btn btn-ghost btn-sm bg-green-600">verify</button></td>
-        <th><button className="btn btn-ghost btn-sm bg-red-500">Reject</button></th>
+        <td><button onClick={()=>handleVerify(property)} className="btn btn-ghost btn-sm bg-green-600">verify</button></td>
+        <th><button onClick={()=>handleReject(property._id)} className="btn btn-ghost btn-sm bg-red-500">Reject</button></th>
 
       </tr>)
    }

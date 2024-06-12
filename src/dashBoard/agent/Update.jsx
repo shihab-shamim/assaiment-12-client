@@ -8,19 +8,19 @@ const Update = () => {
     const axiosSecure =useAxiosSecure()
     const params= useParams()
     // console.log(id)
-    const {data}=useQuery({
-        queryKey:[`/property/${params.id}`],
-        queryFn : async () =>{
-           try{
-            const res =await axiosSecure.get(`/property/${params.id}`)
-            return res.data
-           }
-           catch{
-            console.log(error)
-           }
-        }
-    })
-    console.log(data)
+    // const {data}=useQuery({
+    //     queryKey:[`/property/${params.id}`],
+    //     queryFn : async () =>{
+    //        try{
+    //         const res =await axiosSecure.get(`/property/${params.id}`)
+    //         return res.data
+    //        }
+    //        catch{
+    //         console.log(error)
+    //        }
+    //     }
+    // })
+    // console.log(data)
 
     
     
