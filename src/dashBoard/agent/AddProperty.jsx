@@ -8,6 +8,7 @@ const AddProperty = () => {
   const navigate =useNavigate()
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure()
+  console.log(user)
   
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -19,10 +20,12 @@ const AddProperty = () => {
     const maxPrice = from.maxPrice.value;
     const agentName = from.agentName.value;
     const agentEmail = from.agentEmail.value;
+    const agentImage =user?.photoURL
     const status = "pending";
    
     const imageFile ={image:photo}
     // console.log("image", imageFile);
+    console.log('agent image',agentImage)
     try{
         const {data} =await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_API}`,imageFile,{
             headers:{
@@ -39,6 +42,7 @@ const AddProperty = () => {
             maxPrice,
             agentEmail,
             agentName,
+            agentImage ,
             status,
             image
           };

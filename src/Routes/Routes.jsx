@@ -24,6 +24,7 @@ import WishList from '../dashBoard/user/WistList'
 import PropertyBought from "../dashBoard/user/PropertyBought";
 import MyReview from "../dashBoard/user/MyReview";
 import AllProperty from "../pages/AllProperty/AllProperty";
+import Details from "../dashBoard/user/Details";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         {
           path:'allProperty',
           element:<AllProperty></AllProperty>
+        },
+        {
+          path:'/details/:id',
+          element:<PrivetRoute><Details></Details></PrivetRoute>
         }
       ]
     },

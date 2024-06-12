@@ -27,10 +27,11 @@ const ManageProperty = () => {
             maxPrice:property.maxPrice,
             agentEmail:property.agentEmail,
             agentName:property.agentName,
+            agentImage:property.agentImage,
             status:'verify',
             image:property.image
         }
-        // console.log(verifyItem)
+        console.log(verifyItem)
         const verifyStatus = {status:'verify'}
         // console.log(verifyStatus)
         const id =property._id

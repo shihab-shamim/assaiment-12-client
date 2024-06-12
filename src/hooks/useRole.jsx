@@ -8,6 +8,7 @@ const useRole = () => {
 
     const { data: userStatus={}, isLoading: userLoading } = useQuery({
         queryKey: ['user',user?.email,loading],
+        enabled: !loading && !!user?.email,
         queryFn: async () => {
             try{
                 if (!user?.email) {
@@ -21,7 +22,7 @@ const useRole = () => {
                 console.log(error)
             }
         },
-        enabled: !loading && !!user?.email
+        
     });
 
     const role = userStatus?.role;

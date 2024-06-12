@@ -39,7 +39,7 @@ const AddCard = ({ property, user, refetch }) => {
       <div className="flex space-x-4">
         <img
           alt=""
-          src={user.photoURL}
+          src={property.agentImage}
           className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500"
         />
         <div className="flex flex-col space-y-1">
@@ -81,7 +81,6 @@ const AddCard = ({ property, user, refetch }) => {
       <div className="flex justify-between">
         {!hide && (
           <Link to={`/dashboard/myAdded/${property._id}`}>
-            
             <button className="btn btn-secondary">update</button>
           </Link>
         )}
