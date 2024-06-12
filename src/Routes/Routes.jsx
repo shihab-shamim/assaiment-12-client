@@ -18,6 +18,11 @@ import MyAdd from "../dashBoard/agent/MyAdd";
 import MySold from "../dashBoard/agent/MySold";
 import AgentPrivet from "../dashBoard/agent/AgentPrivet";
 import Update from "../dashBoard/agent/Update";
+import Request from "../dashBoard/agent/Request";
+import UserProfile from "../dashBoard/user/UserProfile";
+import WishList from '../dashBoard/user/WistList'
+import PropertyBought from "../dashBoard/user/PropertyBought";
+import MyReview from "../dashBoard/user/MyReview";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +48,28 @@ const router = createBrowserRouter([
       element:<PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
       children:[
 
+        // user routes
+        {
+          path:'user',
+          element:<PrivetRoute><UserProfile></UserProfile></PrivetRoute>
+
+        },
+        {
+          path:'wishlist',
+          element:<PrivetRoute><WishList></WishList></PrivetRoute>
+          
+        },
+        {
+          path:'bought',
+          element:<PrivetRoute><PropertyBought></PropertyBought></PrivetRoute>
+
+        },
+        {
+          path:'manageReview',
+          element:<PrivetRoute><MyReview></MyReview></PrivetRoute>
+        },
+
+
         // agent routes 
         {
           path:'agent',
@@ -64,6 +91,11 @@ const router = createBrowserRouter([
         {
           path:'mySoldProperty',
           element:<AgentPrivet><MySold></MySold></AgentPrivet>
+        },
+        {
+          path:'requested',
+          element:<AgentPrivet><Request></Request></AgentPrivet>
+
         },
 
 

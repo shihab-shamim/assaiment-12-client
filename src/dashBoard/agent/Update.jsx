@@ -15,7 +15,7 @@ const Update = () => {
     // console.log(params.id)
     
     const {data:property}=useQuery({
-        queryKey:[`property`,params.id],
+        queryKey:[`property`,params.id,'prop'],
         queryFn : async () =>{
            try{
             const res =await axiosSecure.get(`/prop/${params.id}`)
@@ -145,7 +145,7 @@ const Update = () => {
               <input
                 type="file"
                 name="photo"
-                 defaultValue={property?.image}
+                //  defaultValue={property?.image}
                 
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="name@company.com"
@@ -204,7 +204,7 @@ const Update = () => {
         </label>
 
         <button className="btn mt-6 w-full bg-gradient-to-r from-[#5f1066] to-[#1f1672] text-white">
-          Add Item{" "}
+          updated Item
         </button>
       </form>
       </div>

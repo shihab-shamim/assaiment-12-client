@@ -8,7 +8,8 @@ const AgentPrivet = ({children}) => {
 
     const {user,loading}=useAuth()
     const [isAgent,isLoading] =useAgent()
-    if(loading || isLoading){
+    console.log({isLoading,loading})
+    if(isLoading){
         return <span className="loading loading-bars loading-lg"></span>;
     }
     if(user && isAgent){

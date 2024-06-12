@@ -26,7 +26,7 @@ const useRole = () => {
 
     const role = userStatus?.role;
 
-    return [userStatus, role];
+    return [userStatus, role,userLoading];
 };
 
 export default useRole;

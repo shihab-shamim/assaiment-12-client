@@ -166,7 +166,7 @@ const AddProperty = () => {
         </label>
 
         <button className="btn mt-6 w-full bg-gradient-to-r from-[#5f1066] to-[#1f1672] text-white">
-          Add Item{" "}
+          Add Item
         </button>
       </form>
       </div>

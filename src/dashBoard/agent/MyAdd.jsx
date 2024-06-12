@@ -8,7 +8,7 @@ const MyAdd = () => {
     const {user}=useAuth()
     const axiosSecure =useAxiosSecure()
     const {data:properties,refetch,isPending}=useQuery({
-        queryKey:['property'],
+        queryKey:['property',user?.email],
         queryFn:async () => {
             const res = await axiosSecure.get(`/property/${user?.email}`)
             return res.data
