@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const WistList = () => {
@@ -16,6 +17,7 @@ const WistList = () => {
         },
         initialData:[]
     })
+    console.log(data)
     const handleDelete =async (id) =>{
         console.log(id)
         try{
@@ -69,7 +71,7 @@ const WistList = () => {
                             <p className="text-xl font-bold">
                               Price :{" "}
                               <span className="text-green-500">
-                                {da.minPrice} - {da.maxPrice}
+                                {da.minPrice} - {da?.maxPrice}
                               </span>{" "}
                               $
                             </p>
@@ -81,7 +83,7 @@ const WistList = () => {
                           </div>
                         </div>
                         <div className="flex justify-between">
-                            <button className="btn btn-secondary bg-red-600">offer</button>
+                            <Link to={`/offer/${da._id}`}><button className="btn btn-secondary bg-red-600">offer</button></Link>
                         
                           <button
                             onClick={() => handleDelete(da._id)}

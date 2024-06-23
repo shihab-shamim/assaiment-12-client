@@ -1,27 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useAuth from "../../hooks/useAuth";
-import Swal from "sweetalert2";
-import { useState } from "react";
+import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+import useAuth from '../../hooks/useAuth';
 
-
-const Details = () => {
+const AdvertiseDetals = () => {
     const navigate =useNavigate()
     const [review,setReview] = useState('')
     const {user}=useAuth()
-    const axiosSecure=useAxiosSecure()
-    const params =useParams()
-    console.log(params.id)
+    const axiosSecure = useAxiosSecure()
+    const params = useParams()
     const {data:property}=useQuery({
-        queryKey:['details'],
-        queryFn:async () =>{
-            const {data} = await axiosSecure.get(`/details/${params.id}`)
-            return data
+        queryKey:['advertis'],
+        queryFn:async () => {
+            const {data}= await axiosSecure.get(`/adertis/${params.id}`)
+             return data
         },
+        enabled:!!user,
         initialData:{}
     })
-    // console.log(data)
+    // handle wish 
     const handleWishlist =async (property) =>{
         const userEmail=user?.email
         
@@ -52,15 +51,17 @@ const Details = () => {
         }
         
     }
+    //  handle submit 
     const handleSubmit =async (review)=>{
         const reviewText = review
         const reviewId=property._id
         const reviwerImage =user.photoURL
         const agentName =property.agentName
         const reviewerEmail=user.email
+        const reviewerName = user.displayName
         const propertyTitle=property.title
         const date =new Date().toLocaleDateString('en-CA')
-        const reviwerInfo ={reviewText,reviewId,reviwerImage,agentName,reviewerEmail,date,propertyTitle}
+        const reviwerInfo ={reviewText,reviewId,reviwerImage,agentName,reviewerEmail,date,propertyTitle,reviewerName}
         console.log(reviwerInfo)
 
 
@@ -93,11 +94,12 @@ const Details = () => {
         },
         initialData:[]
     })
-    console.log(reviews)
+
+
     
     return (
-        <div className="min-h-[59vh]">
-            <h2 className="text-center text-xl font-bold bg-orange-500 p-4 ">Property Details </h2>
+        <div className='min-h-[59vh]'>
+            <h2 className='text-xl text-bold text-center bg-orange-500 p-4 '> Details </h2>
             <div className="flex justify-center ">
             <div  className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800">
                     <div className="flex space-x-4">
@@ -163,9 +165,7 @@ const Details = () => {
                     </div>
                   </div>
             </div>
-            <h2 className="text-center text-xl font-bold mt-6 mb-6 bg-orange-500 p-4">Review</h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4  gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4  gap-4">
           {
                 reviews.map(review=><div key={review._id} className="card w-96 bg-base-100 shadow-xl">
                     <div className="card-body">
@@ -184,4 +184,4 @@ const Details = () => {
     );
 };
 
-export default Details;
+export default AdvertiseDetals;

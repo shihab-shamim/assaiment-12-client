@@ -4,6 +4,7 @@ import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 const Navber = () => {
   const {user,logOut}=useAuth()
+  console.log(user?.photoURL)
 
     const navlink = <>
     <div className=' gap-4 lg:flex lg:gap-8 font-semibold'><NavLink to='/'><li>Home</li></NavLink>

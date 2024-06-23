@@ -4,6 +4,7 @@ import useRole from "../hooks/useRole";
 
 const Dashboard = () => {
     const [userStatus,role] =useRole()
+    console.log(role)
     // console.log(userStatus,role)
     return (
         <div className="flex">
@@ -15,7 +16,9 @@ const Dashboard = () => {
                     <NavLink to='/dashboard/admin'><li className="mb-2 text-xl">Admin Profile</li></NavLink>
                     <NavLink to='/dashboard/manageProperty'><li className="mb-2 text-xl">Manage Properties</li></NavLink>
                     <NavLink to='/dashboard/manageUser'><li className="mb-2 text-xl">Manage Users</li></NavLink>
-                    <NavLink to='/dashboard/manageReview'><li className="mb-2 text-xl ">Manage reviews</li></NavLink></>
+                    <NavLink to='/dashboard/manageReviewAdmin'><li className="mb-2 text-xl ">Manage reviews</li></NavLink>
+                    <NavLink to='/dashboard/advertise'><li className="mb-2 text-xl ">Advertise property</li></NavLink>
+                    </>
 
                   }
                   {

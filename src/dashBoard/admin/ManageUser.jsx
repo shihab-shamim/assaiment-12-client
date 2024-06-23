@@ -39,13 +39,23 @@ const ManageUser = () => {
         const res = await axiosSecure.patch(`/users/${id}`, info);
         refetch();
 
+
         Swal.fire({
           title: "Updated",
           text: `${make} success`,
           icon: "success"
         });
+        try{
+          const {data}=await axiosSecure.delete(`/fraudDelete/${email}`)
+          console.log(data,'Deleted fraud all propeerty')
+
+        }
+        catch{
+
+        }
       }
     });
+
   };
 
   const handleDelete = async (id) => {

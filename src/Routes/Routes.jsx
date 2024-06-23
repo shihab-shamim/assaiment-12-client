@@ -25,6 +25,9 @@ import PropertyBought from "../dashBoard/user/PropertyBought";
 import MyReview from "../dashBoard/user/MyReview";
 import AllProperty from "../pages/AllProperty/AllProperty";
 import Details from "../dashBoard/user/Details";
+import Offer from "../dashBoard/user/Offer";
+import Advertise from "../dashBoard/admin/Advertise";
+import AdvertiseDetals from "../components/Advertisement/AdvertiseDetals";
 
 const router = createBrowserRouter([
     {
@@ -48,9 +51,18 @@ const router = createBrowserRouter([
           element:<AllProperty></AllProperty>
         },
         {
+          path:'/adertise/:id',
+          element:<PrivetRoute><AdvertiseDetals></AdvertiseDetals></PrivetRoute>
+        },
+        {
           path:'/details/:id',
           element:<PrivetRoute><Details></Details></PrivetRoute>
-        }
+        },
+        {
+          path:'/offer/:id',
+          element:<Offer></Offer>
+        },
+   
       ]
     },
     {
@@ -78,6 +90,7 @@ const router = createBrowserRouter([
           path:'manageReview',
           element:<PrivetRoute><MyReview></MyReview></PrivetRoute>
         },
+        
 
 
         // agent routes 
@@ -122,9 +135,14 @@ const router = createBrowserRouter([
           element:<AdminPrivet><ManageProperty></ManageProperty></AdminPrivet>
         },
         {
-          path:'manageReview',
+          path:'manageReviewAdmin',
           element:<AdminPrivet><ManageReview></ManageReview></AdminPrivet>
-        }
+        },
+        {
+          path:'advertise',
+          element:<AdminPrivet><Advertise></Advertise></AdminPrivet>
+
+        },
       ]
     }
   ]);
