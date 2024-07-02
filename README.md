@@ -36,5 +36,5 @@ npm run dev
 
 ## Projects Details 
 <a href="https://assaiment-12.web.app">Live Link </a>,
-<a href="https://github.com/programming-hero-web-course1/b9a12-client-side-shihabosm">Client side </a>,
-<a href="https://github.com/programming-hero-web-course1/b9a12-server-side-shihabosm">server side </a>,
+
+<a href="https://github.com/shihab-shamim/assaiment-12-server">server side </a>,
